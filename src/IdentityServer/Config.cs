@@ -19,7 +19,7 @@ namespace IdentityServer
         public static IEnumerable<ApiScope> ApiScopes =>
             new ApiScope[]
             {
-                new ApiScope("PCMSAPIforConsole", "PCMS API for Console")
+                new ApiScope("PCMSAPI", "PCMS API")
             };
 
         public static IEnumerable<Client> Clients =>
@@ -40,7 +40,7 @@ namespace IdentityServer
                     },
 
                     // scopes that client has access to
-                    AllowedScopes = { "PCMSAPIforConsole" }
+                    AllowedScopes = { "PCMSAPI" }
                 },
                 // interactive ASP.NET Core MVC client
                 new Client
@@ -59,8 +59,11 @@ namespace IdentityServer
                     AllowedScopes = new List<string>
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile
-                    }
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "PCMSAPI"
+                    },
+
+                    AllowOfflineAccess = true
                 }
             };
     }

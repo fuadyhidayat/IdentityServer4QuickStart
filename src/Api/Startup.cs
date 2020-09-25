@@ -37,7 +37,7 @@ namespace Api
                 options.AddPolicy("ApiScope", policy =>
                 {
                     policy.RequireAuthenticatedUser();
-                    policy.RequireClaim("scope", "PCMSAPIforConsole");
+                    policy.RequireClaim("scope", "PCMSAPI");
                 });
             });
         }

@@ -25,7 +25,7 @@ namespace Client
                 Address = disco.TokenEndpoint,
                 ClientId = "PCMSConsole",
                 ClientSecret = "PCMSConsoleSecret",
-                Scope = "PCMSAPIforConsole"
+                Scope = "PCMSAPI"
             });
 
             if (tokenResponse.IsError)

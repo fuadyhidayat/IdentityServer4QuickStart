@@ -1,14 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.IdentityModel.Tokens.Jwt;
+using IdentityServer4;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.IdentityModel.Tokens.Jwt;
+using Microsoft.IdentityModel.Tokens;
 
 namespace MvcClient
 {
@@ -40,8 +37,27 @@ namespace MvcClient
                     options.ClientSecret = "PCMSMVCSecret";
                     options.ResponseType = "code";
 
+                    options.GetClaimsFromUserInfoEndpoint = true;
+
                     options.SaveTokens = true;
                 });
+                //.AddOpenIdConnect("oidc", "Demo IdentityServer", options =>
+                //{
+                //    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+                //    options.SignOutScheme = IdentityServerConstants.SignoutScheme;
+                //    options.SaveTokens = true;
+
+                //    options.Authority = "https://demo.identityserver.io/";
+                //    options.ClientId = "interactive.confidential";
+                //    options.ClientSecret = "secret";
+                //    options.ResponseType = "code";
+
+                //    options.TokenValidationParameters = new TokenValidationParameters
+                //    {
+                //        NameClaimType = "name",
+                //        RoleClaimType = "role"
+                //    };
+                //});
 
             services.AddControllersWithViews();
         }
@@ -56,9 +72,9 @@ namespace MvcClient
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

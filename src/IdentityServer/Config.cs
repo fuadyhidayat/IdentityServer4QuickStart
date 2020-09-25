@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 using System.Collections.Generic;
+using IdentityServer4;
 using IdentityServer4.Models;
 
 namespace IdentityServer
@@ -24,6 +25,7 @@ namespace IdentityServer
         public static IEnumerable<Client> Clients =>
             new Client[]
             {
+                // machine to machine client (from quickstart 1)
                 new Client
                 {
                     ClientId = "PCMSConsole",
@@ -39,6 +41,26 @@ namespace IdentityServer
 
                     // scopes that client has access to
                     AllowedScopes = { "PCMSAPIforConsole" }
+                },
+                // interactive ASP.NET Core MVC client
+                new Client
+                {
+                    ClientId = "PCMSMVC",
+                    ClientSecrets = { new Secret("PCMSMVCSecret".Sha256()) },
+
+                    AllowedGrantTypes = GrantTypes.Code,
+
+                    // where to redirect to after login
+                    RedirectUris = { "https://localhost:5002/signin-oidc" },
+
+                    // where to redirect to after logout
+                    PostLogoutRedirectUris = { "https://localhost:5002/signout-callback-oidc" },
+
+                    AllowedScopes = new List<string>
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile
+                    }
                 }
             };
     }

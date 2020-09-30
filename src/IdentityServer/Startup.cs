@@ -47,7 +47,6 @@ namespace IdentityServer
             // uncomment if you want to add MVC
             app.UseStaticFiles();
             app.UseRouting();
-
             app.UseIdentityServer();
 
             // uncomment, if you want to add MVC
